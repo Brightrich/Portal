@@ -1,0 +1,59 @@
+K 25
+svn:wc:ra_dav:version-url
+V 76
+/svn/br-site/!svn/ver/120/trunk/Portal/src/main/java/com/brightrich/dao/impl
+END
+TaxInvDaoImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 95
+/svn/br-site/!svn/ver/128/trunk/Portal/src/main/java/com/brightrich/dao/impl/TaxInvDaoImpl.java
+END
+UserDaoImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/br-site/!svn/ver/90/trunk/Portal/src/main/java/com/brightrich/dao/impl/UserDaoImpl.java
+END
+MtrackInvoiceDaoImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/br-site/!svn/ver/111/trunk/Portal/src/main/java/com/brightrich/dao/impl/MtrackInvoiceDaoImpl.java
+END
+MasterAttributeDaoImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/br-site/!svn/ver/105/trunk/Portal/src/main/java/com/brightrich/dao/impl/MasterAttributeDaoImpl.java
+END
+MtrackItemDaoImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/br-site/!svn/ver/105/trunk/Portal/src/main/java/com/brightrich/dao/impl/MtrackItemDaoImpl.java
+END
+MtrackFleetDaoImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/br-site/!svn/ver/129/trunk/Portal/src/main/java/com/brightrich/dao/impl/MtrackFleetDaoImpl.java
+END
+MtrackBillingDaoImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 102
+/svn/br-site/!svn/ver/114/trunk/Portal/src/main/java/com/brightrich/dao/impl/MtrackBillingDaoImpl.java
+END
+AbstractDaoImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 96
+/svn/br-site/!svn/ver/90/trunk/Portal/src/main/java/com/brightrich/dao/impl/AbstractDaoImpl.java
+END
+MtrackCompanyDaoImpl.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/br-site/!svn/ver/99/trunk/Portal/src/main/java/com/brightrich/dao/impl/MtrackCompanyDaoImpl.java
+END

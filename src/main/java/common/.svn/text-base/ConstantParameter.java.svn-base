@@ -1,0 +1,88 @@
+package common;
+
+public class ConstantParameter {
+		
+	 public static final class CustomSQLExp{
+		 	public static final String CUSTOM_TYPE = "CUSTOM";
+			public static final String ORIGINAL_TYPE = "ORIGINAL";
+			public static final String MODE_EXACT = "EXACT";
+			public static final String MODE_LIKE = "LIKE";
+	 }
+	
+	 public static final class MtrackFileUploadPath{
+		 
+		//DEV FILE PATH -- COMMENTED BEFORE BUILDING WAR FOR PROD 
+		public static final String UPLOAD_DIR_ORI = "C:/Users/Arga/Documents/workspace-sts-2.9.2.RELEASE/billing/original/";		
+		public static final String UPLOAD_DIR_CALL = "C:/Users/Arga/Documents/workspace-sts-2.9.2.RELEASE/billing/unlocked/CallDetails/";
+		public static final String UPLOAD_DIR_BILL = "C:/Users/Arga/Documents/workspace-sts-2.9.2.RELEASE/billing/unlocked/BillSummary/";
+		
+		//PRODUCTION FILE PATH -- UNCOMMENTED BEFORE BUILDING WAR
+		//public static final String UPLOAD_DIR_ORI =  "/opt/apache-tomcat-7.0.41/webapps/PortalFiles/MTRACK/billing/original/";
+		//public static final String UPLOAD_DIR_CALL = "/opt/apache-tomcat-7.0.41/webapps/PortalFiles/MTRACK/billing/unlocked/CallDetails/";
+		//public static final String UPLOAD_DIR_BILL = "/opt/apache-tomcat-7.0.41/webapps/PortalFiles/MTRACK/billing/unlocked/BillSummary/";
+		
+		public static final String CALL_DETAIL_PREFIX = "CallDetail";
+		public static final String BILLING_SUMMARY_PREFIX = "BillingSummary";
+		
+		//public static final String BILLING_DATE_PATTERN = "(?<=Invoice Date ).*";
+		//public static final String BILLING_AMOUNT_PATTERN = "(?<=Current Balance Rp. ).*";
+		
+		public static final String PDF_PASSWORD = "999999";
+		public static final String DATE_VALUE = "DATE_VALUE";
+		public static final String AMOUNT_VALUE = "AMOUNT_VALUE";
+		public static final String ERROR_DATE = "ERROR_DATE";
+		public static final String ERROR_AMOUNT = "ERROR_AMOUNT";
+	
+		public static String BILLING_SUMMARY_HEADER = "\\bkartuHALO BILLING STATEMENT\\b";
+		public static String CALL_DETAIL_HEADER = "\\bDetail Usage Statement\\b";
+		public static String BILLING_SUMMARY_INVOICE_DATE = "(?<=Invoice Date ).*";
+		public static String BILLING_SUMMARY_INVOICE_AMOUNT = "(?<=Jumlah yang harus dibayarkan \nRp. ).*|(?<=Jumlah yang harus dibayarkan\nRp. ).*";
+		public static String MSISDN_PATTERN = "(?<=kartuHALO Number ).*";
+	 
+		public static String INNER_MAP_MSISDN = "MSISDN";
+		public static String INNER_MAP_DATE = "DATE";
+		public static String INNER_MAP_AMOUNT = "AMOUNT";
+		public static String INNER_MAP_BILSUM_FNAME = "BILSUM_FNAME";
+		public static String INNER_MAP_CALLDET_FNAME = "CALLDET_FNAME";
+	 
+	}
+	 
+	 public static final class MtrackInvoiceAttr{
+		 	
+		 	public static final String SUBTOTAL = "SUBTOTAL";
+		 	public static final String TOTAL = "TOTAL";
+		 	public static final String VAT = "VAT";
+		 	
+			public static final String BR_PROFILE = "BR_PROFILE";
+			public static final String MTRACK_PROFILE = "MTRACK_PROFILE";
+			public static final String INVOICE = "INVOICE";
+			public static final String ITEM = "ITEM";
+			public static final String ATTRIBUTE = "ATTRIBUTE";
+			public static final String DETAILS_MAP = "DETAILS MAP";
+			public static final String BR_NPWP = "BR_NPWP";
+			public static final String MTRACK_BASE_PRICE = "MTRACK_BASE_PRICE";
+			public static final String MTRACK_ITEM_ID = "MTRACK_ITEM_ID";
+			public static final String BR_NAME = "BR_NAME";
+			public static final String BR_ADDRESS = "BR_ADDRESS";
+			public static final String BR_ACCOUNT_BRANCH = "BR_ACCOUNT_BRANCH";
+			public static final String BR_ACCOUNT_BRANCH_ADDRESS = "BR_ACCOUNT_BRANCH_ADDRESS";
+			public static final String BR_ACCOUNT_NUMBER_IDR = "BR_ACCOUNT_NUMBER_IDR";
+			public static final String BR_ACCOUNT_NUMBER_USD ="BR_ACCOUNT_NUMBER_USD";
+			public static final String BR_SWIFT_CODE ="BR_SWIFT_CODE";
+			public static final String BR_DIRECTOR_NAME = "BR_DIRECTOR_NAME";
+			public static final String BR_NAME_FOOTER = "BR_NAME_FOOTER";
+			public static final String BR_ADDRESS_FOOTER = "BR_ADDRESS_FOOTER";
+			public static final String BR_FINANCE_CONTACT = "BR_FINANCE_CONTACT";
+			public static final String NUM_OF_UNIT = "NUM_OF_UNIT";		
+			
+			
+			//DEV FILE PATH -- COMMENTED BEFORE BUILDING WAR FOR PROD
+			public static final String UPLOAD_DIR_INV = "C:/Users/Arga/Documents/workspace-sts-2.9.2.RELEASE/invoice/";
+			public static final String BR_LOGO_FILE = "C:/Users/Arga/Documents/workspace-sts-2.9.2.RELEASE/Portal/src/main/webapp/assets/img/BRLOGO.png";
+			
+			//PRODUCTION FILE PATH -- UNCOMMENTED BEFORE BUILDING WAR
+			//public static final String UPLOAD_DIR_INV = "/opt/apache-tomcat-7.0.41/webapps/PortalFiles/MTRACK/invoice/";
+			//public static final String BR_LOGO_FILE = "/opt/apache-tomcat-7.0.41/webapps/Portal/assets/img/BRLOGO.png";
+		 }
+		
+}

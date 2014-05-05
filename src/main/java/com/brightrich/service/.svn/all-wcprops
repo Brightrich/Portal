@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/br-site/!svn/ver/122/trunk/Portal/src/main/java/com/brightrich/service
+END
+UserService.java
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/br-site/!svn/ver/90/trunk/Portal/src/main/java/com/brightrich/service/UserService.java
+END
+MtrackInvoiceService.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/br-site/!svn/ver/111/trunk/Portal/src/main/java/com/brightrich/service/MtrackInvoiceService.java
+END
+MasterAttributeService.java
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/br-site/!svn/ver/105/trunk/Portal/src/main/java/com/brightrich/service/MasterAttributeService.java
+END
+MtrackItemService.java
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/br-site/!svn/ver/105/trunk/Portal/src/main/java/com/brightrich/service/MtrackItemService.java
+END
+MtrackFleetService.java
+K 25
+svn:wc:ra_dav:version-url
+V 99
+/svn/br-site/!svn/ver/129/trunk/Portal/src/main/java/com/brightrich/service/MtrackFleetService.java
+END
+MtrackBillingService.java
+K 25
+svn:wc:ra_dav:version-url
+V 101
+/svn/br-site/!svn/ver/111/trunk/Portal/src/main/java/com/brightrich/service/MtrackBillingService.java
+END
+MtrackCompanyService.java
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/br-site/!svn/ver/99/trunk/Portal/src/main/java/com/brightrich/service/MtrackCompanyService.java
+END
+TaxInvService.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/br-site/!svn/ver/128/trunk/Portal/src/main/java/com/brightrich/service/TaxInvService.java
+END

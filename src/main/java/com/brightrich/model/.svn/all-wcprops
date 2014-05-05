@@ -1,0 +1,71 @@
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/br-site/!svn/ver/123/trunk/Portal/src/main/java/com/brightrich/model
+END
+MasterAttribute.java
+K 25
+svn:wc:ra_dav:version-url
+V 94
+/svn/br-site/!svn/ver/105/trunk/Portal/src/main/java/com/brightrich/model/MasterAttribute.java
+END
+UserRole.java
+K 25
+svn:wc:ra_dav:version-url
+V 86
+/svn/br-site/!svn/ver/99/trunk/Portal/src/main/java/com/brightrich/model/UserRole.java
+END
+MtrackItem.java
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/br-site/!svn/ver/114/trunk/Portal/src/main/java/com/brightrich/model/MtrackItem.java
+END
+BaseObject.java
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/br-site/!svn/ver/78/trunk/Portal/src/main/java/com/brightrich/model/BaseObject.java
+END
+Role.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/br-site/!svn/ver/99/trunk/Portal/src/main/java/com/brightrich/model/Role.java
+END
+MtrackFleet.java
+K 25
+svn:wc:ra_dav:version-url
+V 90
+/svn/br-site/!svn/ver/111/trunk/Portal/src/main/java/com/brightrich/model/MtrackFleet.java
+END
+MtrackBilling.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/br-site/!svn/ver/108/trunk/Portal/src/main/java/com/brightrich/model/MtrackBilling.java
+END
+MtrackCompany.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/br-site/!svn/ver/105/trunk/Portal/src/main/java/com/brightrich/model/MtrackCompany.java
+END
+TaxInv.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/br-site/!svn/ver/123/trunk/Portal/src/main/java/com/brightrich/model/TaxInv.java
+END
+User.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/br-site/!svn/ver/99/trunk/Portal/src/main/java/com/brightrich/model/User.java
+END
+MtrackInvoice.java
+K 25
+svn:wc:ra_dav:version-url
+V 92
+/svn/br-site/!svn/ver/128/trunk/Portal/src/main/java/com/brightrich/model/MtrackInvoice.java
+END

@@ -1,0 +1,53 @@
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/br-site/!svn/ver/70/trunk/Portal/src/main/webapp/WEB-INF/jsp/productsAndServices
+END
+consulting.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 100
+/svn/br-site/!svn/ver/37/trunk/Portal/src/main/webapp/WEB-INF/jsp/productsAndServices/consulting.jsp
+END
+product_and_services.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 110
+/svn/br-site/!svn/ver/47/trunk/Portal/src/main/webapp/WEB-INF/jsp/productsAndServices/product_and_services.jsp
+END
+network_infra.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/br-site/!svn/ver/37/trunk/Portal/src/main/webapp/WEB-INF/jsp/productsAndServices/network_infra.jsp
+END
+mixed_delivery.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 104
+/svn/br-site/!svn/ver/42/trunk/Portal/src/main/webapp/WEB-INF/jsp/productsAndServices/mixed_delivery.jsp
+END
+econtact_call.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 103
+/svn/br-site/!svn/ver/70/trunk/Portal/src/main/webapp/WEB-INF/jsp/productsAndServices/econtact_call.jsp
+END
+it_infra.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/br-site/!svn/ver/42/trunk/Portal/src/main/webapp/WEB-INF/jsp/productsAndServices/it_infra.jsp
+END
+econtact.pdf
+K 25
+svn:wc:ra_dav:version-url
+V 98
+/svn/br-site/!svn/ver/44/trunk/Portal/src/main/webapp/WEB-INF/jsp/productsAndServices/econtact.pdf
+END
+service_and_solutions.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 111
+/svn/br-site/!svn/ver/57/trunk/Portal/src/main/webapp/WEB-INF/jsp/productsAndServices/service_and_solutions.jsp
+END

@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 72
+/svn/br-site/!svn/ver/121/trunk/Portal/src/main/webapp/WEB-INF/component
+END
+menu.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 81
+/svn/br-site/!svn/ver/128/trunk/Portal/src/main/webapp/WEB-INF/component/menu.jsp
+END
+script.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/br-site/!svn/ver/99/trunk/Portal/src/main/webapp/WEB-INF/component/script.jsp
+END
+header.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 83
+/svn/br-site/!svn/ver/110/trunk/Portal/src/main/webapp/WEB-INF/component/header.jsp
+END
+footer.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/br-site/!svn/ver/19/trunk/Portal/src/main/webapp/WEB-INF/component/footer.jsp
+END
+slideshow.jsp
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/br-site/!svn/ver/28/trunk/Portal/src/main/webapp/WEB-INF/component/slideshow.jsp
+END

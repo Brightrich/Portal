@@ -1,0 +1,47 @@
+K 25
+svn:wc:ra_dav:version-url
+V 59
+/svn/br-site/!svn/ver/114/trunk/Portal/src/main/java/common
+END
+Tools.java
+K 25
+svn:wc:ra_dav:version-url
+V 70
+/svn/br-site/!svn/ver/111/trunk/Portal/src/main/java/common/Tools.java
+END
+TaxInvoiceBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/br-site/!svn/ver/128/trunk/Portal/src/main/java/common/TaxInvoiceBuilder.java
+END
+MtrackInvoiceStyler.java
+K 25
+svn:wc:ra_dav:version-url
+V 84
+/svn/br-site/!svn/ver/105/trunk/Portal/src/main/java/common/MtrackInvoiceStyler.java
+END
+MtrackInvoiceBuilder.java
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/br-site/!svn/ver/128/trunk/Portal/src/main/java/common/MtrackInvoiceBuilder.java
+END
+ConstantParameter.java
+K 25
+svn:wc:ra_dav:version-url
+V 82
+/svn/br-site/!svn/ver/128/trunk/Portal/src/main/java/common/ConstantParameter.java
+END
+PdfTools.java
+K 25
+svn:wc:ra_dav:version-url
+V 73
+/svn/br-site/!svn/ver/129/trunk/Portal/src/main/java/common/PdfTools.java
+END
+PdfMerger.java
+K 25
+svn:wc:ra_dav:version-url
+V 74
+/svn/br-site/!svn/ver/110/trunk/Portal/src/main/java/common/PdfMerger.java
+END

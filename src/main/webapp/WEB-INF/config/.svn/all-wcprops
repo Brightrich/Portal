@@ -1,0 +1,35 @@
+K 25
+svn:wc:ra_dav:version-url
+V 69
+/svn/br-site/!svn/ver/114/trunk/Portal/src/main/webapp/WEB-INF/config
+END
+spring-hibernate.xml
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/br-site/!svn/ver/78/trunk/Portal/src/main/webapp/WEB-INF/config/spring-hibernate.xml
+END
+servlet-config.xml
+K 25
+svn:wc:ra_dav:version-url
+V 88
+/svn/br-site/!svn/ver/114/trunk/Portal/src/main/webapp/WEB-INF/config/servlet-config.xml
+END
+spring-security.xml
+K 25
+svn:wc:ra_dav:version-url
+V 89
+/svn/br-site/!svn/ver/128/trunk/Portal/src/main/webapp/WEB-INF/config/spring-security.xml
+END
+properties.properties
+K 25
+svn:wc:ra_dav:version-url
+V 91
+/svn/br-site/!svn/ver/128/trunk/Portal/src/main/webapp/WEB-INF/config/properties.properties
+END
+jdbc.properties
+K 25
+svn:wc:ra_dav:version-url
+V 85
+/svn/br-site/!svn/ver/128/trunk/Portal/src/main/webapp/WEB-INF/config/jdbc.properties
+END

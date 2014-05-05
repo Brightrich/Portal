@@ -1,0 +1,431 @@
+package common;
+
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.HashMap;
+import java.util.List;
+import java.util.StringTokenizer;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.util.FileCopyUtils;
+
+import com.brightrich.model.MtrackBilling;
+import com.brightrich.model.MtrackInvoice;
+import com.brightrich.model.MtrackItem;
+import com.itextpdf.text.BaseColor;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
+import com.itextpdf.text.PageSize;
+import com.itextpdf.text.Paragraph;
+import com.itextpdf.text.Phrase;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.Font.FontFamily;
+import com.itextpdf.text.pdf.PdfCopy;
+import com.itextpdf.text.pdf.PdfCopyFields;
+import com.itextpdf.text.pdf.PdfPCell;
+import com.itextpdf.text.pdf.PdfPTable;
+import com.itextpdf.text.pdf.PdfReader;
+import com.itextpdf.text.pdf.PdfStamper;
+import com.itextpdf.text.pdf.PdfWriter;
+import com.itextpdf.text.pdf.parser.PdfTextExtractor;
+
+
+
+public class PdfTools {
+	
+		public static Pattern patternDate = Pattern.compile(ConstantParameter.MtrackFileUploadPath.BILLING_SUMMARY_INVOICE_DATE);
+		public static Pattern patternAmount = Pattern.compile(ConstantParameter.MtrackFileUploadPath.BILLING_SUMMARY_INVOICE_AMOUNT);
+		public static Pattern patternSumHeader = Pattern.compile(ConstantParameter.MtrackFileUploadPath.BILLING_SUMMARY_HEADER);
+		public static Pattern patternDetailHeader = Pattern.compile(ConstantParameter.MtrackFileUploadPath.CALL_DETAIL_HEADER);
+		public static Pattern patternMsisdn = Pattern.compile(ConstantParameter.MtrackFileUploadPath.MSISDN_PATTERN);
+	
+	
+		public static Matcher matcherDate, matcherAmount, matcherMsisdn, matcherHeaderSum, matcherHeaderDetail;
+		public static boolean foundDate = false, foundAmount = false, foundMsisdn = false, foundHeaderSum = false, foundHeaderDetail = false;
+
+	
+		public static String encryptPdf(String src, String dest) throws Exception {
+			
+			 String lockedFile = src;         // Locked pdf filename
+		     String password = ConstantParameter.MtrackFileUploadPath.PDF_PASSWORD; // Locked pdf password
+		     String unlockedFile = dest;      // Filename of the new unlocked pdf
+			
+			
+		    PdfReader reader = new PdfReader(lockedFile, password.getBytes());
+		    PdfReader.unethicalreading = true;
+		    String page = PdfTextExtractor.getTextFromPage(reader, 1);
+		    //System.out.println("PAGE 1 = " + page);
+		    		    		    		    
+		    PdfStamper stamper = new PdfStamper(reader, new FileOutputStream(unlockedFile));
+		    stamper.setEncryption(null, null,
+		    PdfWriter.ALLOW_PRINTING, PdfWriter.DO_NOT_ENCRYPT_METADATA);
+		    stamper.close();
+		    reader.close();
+		    
+		    return page;
+		    //extractData(page);
+		    
+		}				
+		
+		public static HashMap<String, String> extractData(String page){
+			HashMap<String,String> mapData = new HashMap<String,String>();
+			Pattern patternDate = Pattern.compile(ConstantParameter.MtrackFileUploadPath.BILLING_SUMMARY_INVOICE_DATE);
+			Pattern patternAmount = Pattern.compile(ConstantParameter.MtrackFileUploadPath.BILLING_SUMMARY_INVOICE_AMOUNT);
+		    Matcher matcherDate = patternDate.matcher(page);
+		    Matcher matcherAmount = patternAmount.matcher(page);
+		    boolean foundDate = false, foundAmount = false;
+		    
+		    String date = "";
+		    
+		    while (matcherDate.find())
+		    {
+		        System.out.println("I found the text: " + matcherDate.group().toString());
+		        foundDate = true;
+		        date = matcherDate.group().toString();	        	
+	        	
+	        	matcherDate = patternDate.matcher(date);
+		       
+		    }
+		    
+		    if(foundDate){
+		    	mapData.put(ConstantParameter.MtrackFileUploadPath.DATE_VALUE, convertDateToEnglish(date));
+		    } else if (!foundDate)
+		    {
+		        mapData.put(ConstantParameter.MtrackFileUploadPath.ERROR_DATE, "Date cannot be extracted");
+		    }
+		    
+		    while (matcherAmount.find())
+		    {
+		        System.out.println("I found the text: " + matcherAmount.group().toString());
+		        foundAmount = true;
+		        mapData.put(ConstantParameter.MtrackFileUploadPath.AMOUNT_VALUE, (matcherAmount.group().toString()).replace(",", "").replace(".", ""));
+		    }
+		    if (!foundAmount)
+		    {
+		        mapData.put(ConstantParameter.MtrackFileUploadPath.ERROR_AMOUNT, "Amount cannot be extracted");
+		    }
+		    
+		    return mapData;
+		}
+		
+		public static void main(String[] args){
+			try {
+				encryptPdf("C:/Users/Arga/Documents/TSEL/BillingSummary.PDF", "C:/Users/Arga/Documents/TSEL/BillingSummaryOuts.PDF");
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		
+		
+		public static String createPdfDoc(HashMap<String, Object> detailsMap) throws Exception{
+			
+	    	MtrackInvoice invoice = (MtrackInvoice) detailsMap.get(ConstantParameter.MtrackInvoiceAttr.INVOICE);
+	    	MtrackItem item = (MtrackItem) detailsMap.get(ConstantParameter.MtrackInvoiceAttr.ITEM);
+	    	HashMap<String,String> attrMap = (HashMap<String, String>) detailsMap.get(ConstantParameter.MtrackInvoiceAttr.ATTRIBUTE);
+	    	
+	    	Document document = new Document();
+			document.setPageCount(2);
+			
+			
+			document.setPageSize(PageSize.A4);
+			document.setMargins(50f, 30f, 30f, 50f);
+			String name=invoice.getInvoiceNo()+"_"+Tools.dateToStr.format(invoice.getInvoiceDate())+".pdf";
+	    	PdfWriter.getInstance(document, new FileOutputStream(ConstantParameter.MtrackInvoiceAttr.UPLOAD_DIR_INV+name));
+	    	
+			document.open();
+			
+			document.newPage();
+			
+	        document.add(MtrackInvoiceBuilder.createHeaderTable());              
+	        document.add(MtrackInvoiceBuilder.createLineSeparator());
+
+	        document.add(MtrackInvoiceBuilder.createTableInfo(attrMap, invoice));
+	    	document.add(MtrackInvoiceBuilder.createTableBilling(attrMap, invoice, item));
+	    	document.add(MtrackInvoiceBuilder.createTableFooter(attrMap));
+	    	
+	    	PdfPTable outerTable = new PdfPTable (1);
+	    	outerTable.setWidths(new float[] { 8f });
+	        outerTable.setWidthPercentage (100);
+
+	        PdfPCell cell = new PdfPCell ();
+	        System.out.println("PAGE SIZE = " + document.getPageSize ().getHeight ());
+	        cell.setMinimumHeight (144f);
+	        cell.setVerticalAlignment (Element.ALIGN_BOTTOM);
+	        cell.addElement (MtrackInvoiceBuilder.createTablePageFooter(attrMap));
+	        cell.setBorder(Rectangle.NO_BORDER);
+	        outerTable.addCell (cell);
+	        document.add (outerTable);
+	    	//document.add(MtrackInvoiceBuilder.createTablePageFooter(attrMap));
+	    	
+	    	document.newPage();
+	    	
+	    	document.add(TaxInvoiceBuilder.createTaxHeader(invoice));
+	    	document.add(TaxInvoiceBuilder.createTaxBody(attrMap, invoice));
+	    	document.add(TaxInvoiceBuilder.createTaxDetail(item, invoice, attrMap));
+	    	document.add(TaxInvoiceBuilder.createTaxFooter(invoice, attrMap));
+	    	
+	    	Font fontLabel = new Font(FontFamily.TIMES_ROMAN, 8, Font.NORMAL, BaseColor.BLACK);
+	    	document.add(new Paragraph(new Phrase("*) Diisi apabila penyerahan menggunakan mata uang asing", fontLabel)));
+	    	document.add(new Paragraph(new Phrase("**) Coret Yang Tidak Perlu", fontLabel)));
+	    	
+	       /* document.add( Chunk.NEWLINE );
+	        document.add( Chunk.NEWLINE );*/
+
+	        //document.add(TableBuilder.createBillingTable());
+	 
+	        //step 5
+	        
+	    	
+	    	document.close();
+	    	System.out.println( "PDF Created!" );
+	    	
+	    	return name;
+	        	
+			
+		}
+		
+		public static HttpServletResponse openPdf(String fn, HttpServletResponse res, String flag){
+			try {        	
+	            String path = "";
+	            
+	            if(fn!=null && flag.equals(ConstantParameter.MtrackFileUploadPath.BILLING_SUMMARY_PREFIX)){
+	            	path = ConstantParameter.MtrackFileUploadPath.UPLOAD_DIR_BILL+fn;
+	            	System.out.println("Path = " + path);
+	            } else if(fn!=null && flag.equals(ConstantParameter.MtrackFileUploadPath.CALL_DETAIL_PREFIX)){
+	            	path = ConstantParameter.MtrackFileUploadPath.UPLOAD_DIR_CALL+fn;
+	            	System.out.println("Path = " + path);
+	            } else {
+	            	path = ConstantParameter.MtrackInvoiceAttr.UPLOAD_DIR_INV+fn;
+	            	System.out.println("Path = " + path);
+	            }
+	            
+	                        
+	            File f = new File(path);
+	            System.out.println("Loading file "+path);
+	            if (f.exists()) {
+	                res.setContentType("application/pdf");
+	                res.setContentLength(new Long(f.length()).intValue());
+	                //res.setHeader("Content-Disposition", "attachment; filename="+fn);
+	                FileCopyUtils.copy(new FileInputStream(f), res.getOutputStream());
+	            } else {
+	                System.out.println("File "+fn+"("+f.getAbsolutePath()+") does not exist");
+	            }
+	        } catch (Exception e) {
+	            System.out.println("Error "+e.getMessage());
+	            e.printStackTrace();
+	        }
+			
+			return res;
+		}
+		
+		
+	public static byte[] concatPDFFiles(List<String> listOfFiles,
+		        String outputfilepath) throws DocumentException, IOException {
+		    PdfCopyFields copy = null;
+		    ByteArrayOutputStream baos = new ByteArrayOutputStream();
+		    try {
+		    	copy = new PdfCopyFields(baos);
+		    } catch (DocumentException ex) {
+		    	System.out.println("1");
+		        ex.printStackTrace();
+		    }
+		    try {
+		        for (String fileName : listOfFiles) {
+		            PdfReader reader1 = new PdfReader(fileName);
+		            PdfReader.unethicalreading = true;
+		            copy.addDocument(reader1);
+		            System.out.println("READ");
+		        }
+		    } catch (IOException ex) {
+		    	ex.printStackTrace();
+		    	System.out.println("2");
+		    } finally {
+		        copy.close();
+		        baos.close();
+		    }
+		    
+		    //System.out.println("file bytes = " + new String(baos.toByteArray()));		    
+		    return baos.toByteArray();
+		}
+		
+	public static String convertDateToEnglish(String inputDate){
+		
+		String[] arrDate = inputDate.split("-"); 
+		
+		if(arrDate[1].toLowerCase().contains("januari") || arrDate[1].toLowerCase().contains("jan")){
+			inputDate = inputDate.replace(arrDate[1], "January");
+		} else if (arrDate[1].toLowerCase().contains("pebruari") || arrDate[1].toLowerCase().contains("februari") || arrDate[1].toLowerCase().contains("feb") || arrDate[1].toLowerCase().contains("peb")){
+			inputDate = inputDate.replace(arrDate[1], "February");
+		} else if (arrDate[1].toLowerCase().contains("maret") || arrDate[1].toLowerCase().contains("mar")){
+			inputDate = inputDate.replace(arrDate[1], "March");
+		} else if (arrDate[1].toLowerCase().contains("april") || arrDate[1].toLowerCase().contains("apr")){
+			inputDate = inputDate.replace(arrDate[1], "April");
+		} else if (arrDate[1].toLowerCase().contains("mei")){
+			inputDate = inputDate.replace(arrDate[1], "May");
+		} else if (arrDate[1].toLowerCase().contains("juni") || arrDate[1].toLowerCase().contains("jun")){
+			inputDate = inputDate.replace(arrDate[1], "June");
+		} else if (arrDate[1].toLowerCase().contains("juli") || arrDate[1].toLowerCase().contains("jul")){
+			inputDate = inputDate.replace(arrDate[1], "July");
+		} else if (arrDate[1].toLowerCase().contains("agustus") || arrDate[1].toLowerCase().contains("aug")){
+			inputDate = inputDate.replace(arrDate[1], "August");
+		} else if (arrDate[1].toLowerCase().contains("sept") || arrDate[1].toLowerCase().contains("sep")){
+			inputDate = inputDate.replace(arrDate[1], "September");
+		} else if (arrDate[1].toLowerCase().contains("oktober") || arrDate[1].toLowerCase().contains("okt") || arrDate[1].toLowerCase().contains("oct")){
+			inputDate = inputDate.replace(arrDate[1], "October");
+		} else if (arrDate[1].toLowerCase().contains("nopember") || arrDate[1].toLowerCase().contains("nov") || arrDate[1].toLowerCase().contains("nop")){
+			inputDate = inputDate.replace(arrDate[1], "November");
+		} else if (arrDate[1].toLowerCase().contains("desember") || arrDate[1].toLowerCase().contains("dec") || arrDate[1].toLowerCase().contains("des")){
+			inputDate = inputDate.replace(arrDate[1], "Desember");
+		}
+				
+		return inputDate;
+	}
+	
+	public static HashMap<String, HashMap<String,String>> mtrackBatchPdfProcess(String dirBill, String outDirBillSum, String outDirCallDetail) throws IOException, DocumentException{
+		
+		HashMap<String,HashMap<String,String>> map = new HashMap<String,HashMap<String,String>>();
+		HashMap<String,String> innerMap = null;
+		
+		PdfReader reader = new PdfReader(dirBill);
+		
+		String prevMsisdnCD = "";
+		final String RESULT_CALL_DETAIL = "CallDetail_";
+		final String RESULT_BILL_SUM = "BillingSummary_";
+				
+		// We'll create as many new PDFs as there are pages
+		Document sumDoc, detailDoc = null;
+		PdfCopy copySum, copyDetail = null;
+		String msisdn ="", date ="", amount="";
+		
+	    // step 1
+		// loop over all the pages in the original PDF
+		int n = reader.getNumberOfPages();
+				
+		for (int i = 0; i < n; i++) {
+				    
+		    // step 2 get page
+		    String page =  PdfTextExtractor.getTextFromPage(reader, i+1);
+		   
+		    //checked bill sum or call details
+		    matcherHeaderSum = patternSumHeader.matcher(page);
+		    matcherHeaderDetail = patternDetailHeader.matcher(page);
+		   
+		    if(matcherHeaderSum.find()){		    	
+		    	// BILLING SUMMARY PAGE		    	
+		    	innerMap = new HashMap<String, String>();
+		    	
+		        matcherMsisdn = patternMsisdn.matcher(page);
+		        if(matcherMsisdn.find()){
+		        	msisdn = matcherMsisdn.group().toString();
+		        	if(msisdn.startsWith("62")){
+		        		msisdn = "0"+msisdn.substring(2);
+		        	}
+		        	innerMap.put(ConstantParameter.MtrackFileUploadPath.INNER_MAP_MSISDN, msisdn);
+		        }
+		        
+		        matcherAmount = patternAmount.matcher(page);
+		        if(matcherAmount.find()){
+		        	amount = matcherAmount.group().toString();
+		        	amount = amount.replace(",", "").replace(".", "");
+		        	innerMap.put(ConstantParameter.MtrackFileUploadPath.INNER_MAP_AMOUNT, amount);
+		        }
+		        
+		        matcherDate = patternDate.matcher(page);
+		        while(matcherDate.find()){		        	
+		        	date = matcherDate.group().toString();
+		        	date = convertDateToEnglish(date);
+		        	
+		        	matcherDate = patternDate.matcher(date);
+		        }
+		        
+		        if(date != null && !date.equals("")){
+		        	innerMap.put(ConstantParameter.MtrackFileUploadPath.INNER_MAP_DATE, date);
+		        }
+		        
+		        System.out.println("I found the Billing Summary");
+		        System.out.println("EXTRACTED BILL SUMMARY DATA : \n MSISDN = " + msisdn + "\n" + "AMOUNT = " + amount + "\n" + "DATE = " + date );
+		        
+		        //WRITE PDF
+		        String fname = RESULT_BILL_SUM+msisdn+"_"+date+".pdf";
+		        sumDoc = new Document();
+		        copySum = new PdfCopy(sumDoc, new FileOutputStream(outDirBillSum+fname));
+		        sumDoc.open();
+		        copySum.addPage(copySum.getImportedPage(reader, i+1));
+		        sumDoc.close();
+		        copySum.close();
+		        
+		        innerMap.put(ConstantParameter.MtrackFileUploadPath.INNER_MAP_BILSUM_FNAME, fname);
+		        map.put(msisdn, innerMap);		        
+		        
+		    } else if (matcherHeaderDetail.find()){		    			    	
+		    	
+		    	matcherMsisdn = patternMsisdn.matcher(page);
+		        if(matcherMsisdn.find()){
+		        	msisdn = matcherMsisdn.group().toString();
+		        	if(msisdn.startsWith("62")){
+		        		msisdn = "0"+msisdn.substring(2);
+		        	}		        		        
+		        	
+		        	innerMap = map.get(msisdn);
+		        	String fname = RESULT_CALL_DETAIL+msisdn+"_"+map.get(msisdn).get(ConstantParameter.MtrackFileUploadPath.INNER_MAP_DATE)+".pdf";
+		        	
+		        	
+		        	if(prevMsisdnCD.equals("")){
+		        		detailDoc = new Document();
+				        copyDetail = new PdfCopy(detailDoc, new FileOutputStream(outDirCallDetail+fname));
+		        		innerMap.put(ConstantParameter.MtrackFileUploadPath.INNER_MAP_CALLDET_FNAME, fname);
+				        detailDoc.open();
+				        copyDetail.addPage(copyDetail.getImportedPage(reader, i+1));
+				        
+		        	} else if(prevMsisdnCD.equals(msisdn)){
+		        		//ADD to DOCUMENT BEFORE
+		        		System.out.println("SAME DOCUMENT");
+		        		copyDetail.addPage(copyDetail.getImportedPage(reader, i+1));
+		        
+		        	} else {
+		        		// CREATE NEW DOCUMENT
+		        		detailDoc.close();
+		        		copyDetail.close();
+		        		
+		        		detailDoc = new Document();
+				        copyDetail = new PdfCopy(detailDoc, new FileOutputStream(outDirCallDetail+fname));
+				        innerMap.put(ConstantParameter.MtrackFileUploadPath.INNER_MAP_CALLDET_FNAME, fname);
+				        detailDoc.open();
+				        copyDetail.addPage(copyDetail.getImportedPage(reader, i+1));				        				        
+		        	}
+		        	
+		        	prevMsisdnCD=msisdn;
+		        	
+		        	if(i+1 >= n){
+		        		detailDoc.close();
+		        		copyDetail.close();
+		        	}
+		        	
+		        	System.out.println("I found the CALL DETAILS for MSISDN : " + msisdn);	
+		        	
+		        }
+		        
+		        map.put(msisdn, innerMap);
+		    }		    		    		    		    
+		}
+		
+		System.out.println("DONE!!!");
+		reader.close(); 
+		
+		return map;
+	}
+	
+}
